@@ -22,9 +22,11 @@ function processPostRequest(request, response) {
     'Content-Type' : 'application/json'    	
   });
   
-  var data = '';
+  //var data = '';
+  var data = [];
   request.on('data', function(chunk) {
-	  data += chunk;
+	  data.push(chunk);
+	  //data+=chunk;
 	    	  
   });
   request.on('end', function(){
