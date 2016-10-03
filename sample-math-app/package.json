@@ -1,0 +1,12 @@
+{
+  "name": "sample-math-app",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "solve-with-module.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "bojinov",
+  "license": "ISC"
+  
+}
