@@ -31,7 +31,7 @@ function processPostRequest(request, response) {
   });
   request.on('end', function(){
 	  
-		  console.log(data);	  
+		  console.log(data.toString());	  
 		  
 		  var object = JSON.parse(data);
 		  object.processed = true;		  
