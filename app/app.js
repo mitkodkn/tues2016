@@ -19,6 +19,10 @@ function handleRequest(request, response)
 		{
 			imageProvider.provideImage(response);
 		}
+		else if (get_params.query.data != null && get_params.query.data != null)
+		{
+			dataProvider.provideData(response);
+		}
 		else
 		{
 			dataProvider.provideData(response);
