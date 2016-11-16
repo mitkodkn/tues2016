@@ -1,6 +1,5 @@
 var http = require('http');
 var url = require('url');
-var imageProvider = require('./modules/image-provider.js');
 var dataProvider = require('./modules/data-provider.js');
 
 var port = 8180;
@@ -17,15 +16,15 @@ function handleRequest(request, response)
 		var get_params = url.parse(request.url, true);
 		if (get_params.query.image != null && get_params.query.image != null)
 		{
-			imageProvider.provideImage(response);
+			dataProvider.provideData('images/image.jpg',{'Content-Type': 'image/jpeg'}, response);
 		}
 		else if (get_params.query.data != null && get_params.query.data != null)
 		{
-			dataProvider.provideData(response);
+			dataProvider.provideData('data/data.json',{'Content-Type': 'application/json'}, response);
 		}
 		else
 		{
-			dataProvider.provideData(response);
+			dataProvider.provideData('data/data.json',{'Content-Type': 'application/json'}, response);
 		}
 	}
 }

@@ -3,14 +3,14 @@
  */
 var fs = require('fs');
 
-function readData(filename, response)
+function readData(filename, contentType, response)
 {
 	console.log('providing ' + filename);
 	fs.exists(filename, function(exists) {
 		if (exists) {		
 				fs.readFile(filename, function(error, data) {	
 					if (!error)	{
-						response.writeHead(200, {'Content-Type': 'application/json'});
+						response.writeHead(200, contentType);
 						response.end(data);
 					}
 					else {			
@@ -27,7 +27,7 @@ function readData(filename, response)
 	});
 	
 }
-exports.provideData = function(response)
+exports.provideData = function(filename, contentType, response)
 {
-	return readData('data/data.json', response);
+	return readData(filename,contentType, response);
 }
