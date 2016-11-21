@@ -16,15 +16,15 @@ function handleRequest(request, response)
 		var get_params = url.parse(request.url, true);
 		if (get_params.query.image != null && get_params.query.image != null)
 		{
-			dataProvider.provideData('images/image.jpg',{'Content-Type': 'image/jpeg'}, response);
+			dataProvider.provideData('images/'+get_params.query.image+'.jpg',{'Content-Type': 'image/jpeg'}, response);
 		}
-		else if (get_params.query.data != null && get_params.query.data != null)
+		if (get_params.query.type != null && get_params.query.type != null)
 		{
-			dataProvider.provideData('data/data.json',{'Content-Type': 'application/json'}, response);
+			dataProvider.queryData('data/data.json',{'Content-Type': 'application/json'}, get_params.query.type, response);
 		}
 		else
 		{
-			dataProvider.provideData('data/data.json',{'Content-Type': 'application/json'}, response);
+			dataProvider.provideList('data/data.json',{'Content-Type': 'application/json'}, response);
 		}
 	}
 }
