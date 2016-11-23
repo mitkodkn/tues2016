@@ -18,7 +18,7 @@ function handleRequest(request, response)
 		{
 			dataProvider.provideData('images/'+get_params.query.image+'.jpg',{'Content-Type': 'image/jpeg'}, response);
 		}
-		if (get_params.query.type != null && get_params.query.type != null)
+		else if (get_params.query.type != null && get_params.query.type != null)
 		{
 			dataProvider.queryData('data/data.json',{'Content-Type': 'application/json'}, get_params.query.type, response);
 		}
