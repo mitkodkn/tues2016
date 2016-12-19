@@ -2,13 +2,18 @@ var express = require('express');
 var router = express.Router();
 var dataProvider = require('../modules/data-provider.js');
 
+var dbProvider = require('../modules/mongodb-provider.js');
+
 /* GET home page. */
 
 
 router.get('/', function(request, response, next){
 	console.log('Get all');
-	dataProvider.provideList('data/data.json',{'Content-Type': 'application/json'}, response);
+	dbProvider.provideList(response);
 	
+});
+router.post('/', function(request, response, next){
+	dbProvider.saveCharacter(request, response);
 });
 
 router.get('/:type', function(request, response, next){
@@ -32,7 +37,7 @@ router.get('/:type', function(request, response, next){
 	}
 	else
 	{
-		dataProvider.provideList('data/data.json',{'Content-Type': 'application/json'}, response);
+		dbProvider.provideList(response);
 	}
 });
 
