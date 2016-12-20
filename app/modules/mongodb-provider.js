@@ -66,7 +66,7 @@ exports.saveCharacter = function(request, response)
 											
 										}
 									});
-				}function
+				}
 			});
 };
 
