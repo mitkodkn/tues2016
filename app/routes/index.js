@@ -16,33 +16,17 @@ router.post('/', function(request, response, next){
 	dbProvider.saveCharacter(request, response);
 });
 
-router.post('/:type', function(request, response, next){
+router.post('/:type/image', function(request, response, next){
 	dbProvider.saveImage(request, response);
 });
 
+router.get('/:type/image', function(request, response, next){
+	dbProvider.getImage(request, response);
+
+});
+
 router.get('/:type', function(request, response, next){
-	console.log('Get by type: ' + request.params.type);
-	console.log('Image requested: ' + request.query.image);
-	console.log(request.query);
-	var image = request.query.image;
-	var type = request.params.type;
-	
-	if ((image != null) && (type != null && type != ''))
-	{
-		console.log('Image request');
-		console.log(image);
-		dbProvider.getImage(request, response);
-	}
-	else if (type != null && type != '')
-	{
-		console.log('Data requested');
-		console.log(image);
-		dataProvider.queryData('data/data.json',{'Content-Type': 'application/json'}, request.params.type, response);
-	}
-	else
-	{
-		dbProvider.provideList(response);
-	}
+	dbProvider.queryData({}, request.params.type, response);
 });
 
 module.exports = router;
