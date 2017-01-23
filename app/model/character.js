@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var GridImage = require('gridfs-stream');
 
 mongoose.connect('mongodb://localhost/characters');
 
+
 var characterSchema = new Schema ({	
-	//firstname : String,
 	firstname : {type: String, index: {unique: true}},
 	lastname : String,
 	strength : Number,
@@ -13,4 +14,9 @@ var characterSchema = new Schema ({
 });
 
 var Character = mongoose.model('Character', characterSchema);
-module.exports = Character;
+var GridImage = GridImage(mongoose.connection.db, mongoose.mongo);
+
+module.exports = {Character : Character,
+		Grid : GridImage};
+
+

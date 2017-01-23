@@ -11,5 +11,8 @@
     "application"
   ],
   "author": "bojiov",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gridfs-stream": "^1.1.1"
+  }
 }

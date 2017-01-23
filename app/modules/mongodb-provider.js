@@ -1,9 +1,12 @@
 /**
  * New node file
  */
-var Character = require('../model/character.js');
 
-exports.provideList = function(response) {
+var models = require('../model/character.js');
+
+var Character = models.Character;
+
+exports.provideList = function(response, queryType) {
 
 	Character.find({}, function(error, result) {
 		if (error) {
@@ -17,6 +20,61 @@ exports.provideList = function(response) {
 
 };
 
+exports.saveImage = function(request, response) {
+	
+	
+	var writeStream = models.Grid.createWriteStream({
+		_id : request.params.type,
+		filename : 'image',
+		mode : 'w'
+	});
+	
+	writeStream.on('error', function(error) {
+		response.send('500', 'Internal Server Error');
+		console.log('error write');
+		return;
+	})
+	
+	writeStream.on('close', function() {
+		var readStream = models.Grid.createReadStream({
+			_id : request.params.type,
+			filename : 'image',
+			mode : 'r'
+		});
+		
+		readStream.on('error', function(error) {
+			console.log('error read');
+			console.log(error);
+			response.send('500', 'Internal Server Error');
+			return;
+		});
+		
+		response.writeHead(200, {'Content-Type' : 'image/jpeg'});
+		readStream.pipe(response);
+	});
+	
+	request.pipe(writeStream);
+
+};
+
+exports.getImage = function(request, response) {
+	var readStream = models.Grid.createReadStream({
+		_id : request.params.type,
+		filename : 'image',
+		mode : 'r'
+	});
+	
+	readStream.on('error', function(error) {
+		console.log('error read');
+		console.log(error);
+		response.send('500', 'Internal Server Error');
+		return;
+	});
+	
+	response.writeHead(200, {'Content-Type' : 'image/jpeg'});
+	readStream.pipe(response);
+};
+
 exports.queryData = function(headers, query, response) {
 };
 
@@ -26,7 +84,6 @@ exports.saveCharacter = function(request, response)
 	character
 			.save(function(error) {
 				if (!error) {
-					character.save();
 					response.writeHead(201, {
 						'Content-Type' : 'application/json'
 					});

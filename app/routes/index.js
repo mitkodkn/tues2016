@@ -16,6 +16,10 @@ router.post('/', function(request, response, next){
 	dbProvider.saveCharacter(request, response);
 });
 
+router.post('/:type', function(request, response, next){
+	dbProvider.saveImage(request, response);
+});
+
 router.get('/:type', function(request, response, next){
 	console.log('Get by type: ' + request.params.type);
 	console.log('Image requested: ' + request.query.image);
@@ -27,7 +31,7 @@ router.get('/:type', function(request, response, next){
 	{
 		console.log('Image request');
 		console.log(image);
-		dataProvider.provideData('images/'+type+'.jpg',{'Content-Type': 'image/jpeg'}, response);
+		dbProvider.getImage(request, response);
 	}
 	else if (type != null && type != '')
 	{
